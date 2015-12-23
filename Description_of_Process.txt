@@ -1,0 +1,27 @@
+CameraListReducer.py:
+	- Reads raw camera_list.txt
+	- reduces duplicates/sanitizes data as much as possible by removing whitespace and "-",
+	  creating a common terminology ("mark" instead of "mk", numbers instead of roman numerals, 
+	  removing excess terminology commonly occurring such as "edition" and "eos"
+	- Puts data in set to remove all current duplicates, reducing number of terms to 272, 
+	  then converts back to a list
+	- Sorts the remaining data, writes it into a new file "filtered_cameras_list.txt"
+
+
+filtered_cameras_list.txt:
+	- Needed to have a "Master List" of camera names that I wanted to use to map all of the raw data to,
+	  so I manually reduced the rest of the list in order to finalize the master list
+	- Removed all invalid cameras or redundant lines that weren't removed in the CameraListReducer.py
+	- Finalized list stored in "Real_List_of_Cameras.txt"
+
+PredefinedCameraMapper.py:
+	- Open both the raw camera file and the master list into seperate lists
+	- Each line has a newline character "\n" at end, so I remove those as well
+	- In order to prevent unnecessary operations from occurring, convert the
+	  raw original camera list to a set and then back to a list to remove
+	  duplicates
+	- Using Python's get_close_matches method, get each raw camera's closest
+	  match in the master list, then map it to that camera in a dictionary structure
+	- If there is an IndexError (no matches are found), it will pass over that camera
+	- Once the mapping is complete, pretty print the dictionary contents to the
+	  console
